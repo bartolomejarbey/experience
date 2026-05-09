@@ -1,0 +1,59 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm i*)",
+      "Bash(npm install*)",
+      "Bash(npm ci*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run build*)",
+      "Bash(npm run lint*)",
+      "Bash(npm run typecheck*)",
+      "Bash(npm run start*)",
+      "Bash(npm run format*)",
+      "Bash(npx tsc*)",
+      "Bash(npx prettier*)",
+      "Bash(npx eslint*)",
+      "Bash(npx supabase*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git branch*)",
+      "Bash(git switch*)",
+      "Bash(git checkout*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git pull*)",
+      "Bash(git fetch*)",
+      "Bash(git remote*)",
+      "Bash(git stash list*)",
+      "Bash(node .claude/hooks/*)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -*)",
+      "Bash(git rebase -i*)",
+      "Bash(git filter-branch*)",
+      "Bash(rm -rf*)",
+      "Bash(npx supabase db reset*)",
+      "Bash(supabase db reset*)",
+      "Edit(.env.local)",
+      "Edit(.env.production)",
+      "Write(.env.local)",
+      "Write(.env.production)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/end-of-turn.mjs"
+          }
+        ]
+      }
+    ]
+  }
+}
