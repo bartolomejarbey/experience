@@ -17,7 +17,6 @@ export const LeadSchema = z.object({
   modelId: z.enum(MODEL_IDS),
   configuration: z.record(z.string(), z.string()),
   computedPrice: z.number().int().positive(),
-  website: z.string().max(0).optional().default(""),
 });
 
 export type Lead = z.infer<typeof LeadSchema>;
