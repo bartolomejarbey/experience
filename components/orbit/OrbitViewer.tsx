@@ -187,7 +187,7 @@ export default function OrbitViewer({
           src={currentSrc}
           alt=""
           draggable={false}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain"
         />
       ) : null}
 
