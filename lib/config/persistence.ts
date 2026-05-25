@@ -3,7 +3,10 @@
 import type { ConfigState } from "@/lib/types/config";
 import type { ModelId } from "@/lib/types/model";
 
-const STORAGE_KEY_PREFIX = "aura:config:";
+// v2 — bumped when the configuration schema changed (10 facades, terrace
+// gained a 'none' option, pergola removed). Old entries under `aura:config:`
+// would otherwise silently keep selecting outdated defaults.
+const STORAGE_KEY_PREFIX = "aura:config:v2:";
 
 export function loadConfig(modelId: ModelId): Partial<ConfigState> | null {
   if (typeof window === "undefined") return null;
