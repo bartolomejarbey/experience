@@ -5,12 +5,12 @@ import "pannellum/build/pannellum.css";
 
 import { useEffect, useRef } from "react";
 
-import type { HotSpot, InfoHotSpot, Scene } from "@/lib/types/scene";
+import type { InfoHotSpot, PanoramaHotSpot, PanoramaScene } from "@/lib/types/scene";
 
 import { createInfoDotDom, createSceneArrowDom } from "./hotspots";
 
 type PannellumViewerProps = {
-  scenes: Record<string, Scene>;
+  scenes: Record<string, PanoramaScene>;
   currentSceneId: string;
   onSceneChange: (sceneId: string) => void;
   onInfoHotSpotClick: (hotspot: InfoHotSpot, ownerSceneId: string) => void;
@@ -133,7 +133,7 @@ export default function PannellumViewer({
 }
 
 function buildHotSpot(
-  hotspot: HotSpot,
+  hotspot: PanoramaHotSpot,
   ownerSceneId: string,
   onSceneChangeRef: React.RefObject<(id: string) => void>,
   onInfoClickRef: React.RefObject<(h: InfoHotSpot, sceneId: string) => void>,

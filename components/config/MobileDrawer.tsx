@@ -8,6 +8,8 @@ import { useConfig } from "@/lib/config/useConfig";
 import { formatPrice } from "@/lib/format";
 
 import { ConfigOptionGroup } from "./ConfigOption";
+import { ModelInfoDialog } from "./ModelInfoDialog";
+import { PdfDownloadButton } from "./PdfDownloadButton";
 
 type MobileDrawerProps = {
   onOpenLeadModal: () => void;
@@ -19,6 +21,7 @@ const DRAWER_HEIGHT = "85vh";
 export function MobileDrawer({ onOpenLeadModal }: MobileDrawerProps) {
   const { model, price } = useConfig();
   const [expanded, setExpanded] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
 
   return (
     <>
@@ -27,13 +30,13 @@ export function MobileDrawer({ onOpenLeadModal }: MobileDrawerProps) {
           type="button"
           aria-label="Zavřít konfigurátor"
           onClick={() => setExpanded(false)}
-          className="bg-ink/40 fixed inset-0 z-40 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm md:hidden"
         />
       )}
 
       <div
         className={clsx(
-          "bg-cream rounded-t-card fixed inset-x-0 bottom-0 z-50 flex flex-col md:hidden",
+          "fixed inset-x-0 bottom-0 z-50 flex flex-col rounded-t-card bg-cream md:hidden",
           "shadow-[0_-4px_24px_rgba(26,22,18,0.15)]",
         )}
         style={{
@@ -53,22 +56,15 @@ export function MobileDrawer({ onOpenLeadModal }: MobileDrawerProps) {
           aria-controls="aura-drawer-body"
           className="flex w-full flex-col items-stretch px-6 pt-3 pb-2"
         >
-          <span
-            className="bg-brown/30 mx-auto block h-1 w-12 rounded-full"
-            aria-hidden="true"
-          />
+          <span className="mx-auto block h-1 w-12 rounded-full bg-brown/30" aria-hidden="true" />
           <div className="mt-3 flex items-baseline justify-between">
             <div className="text-left">
-              <div className="font-display text-ink text-2xl">{model.name}</div>
-              <div className="text-ink-muted font-body text-xs">{model.type}</div>
+              <div className="font-display text-2xl text-ink">{model.name}</div>
+              <div className="font-body text-xs text-ink-muted">{model.type}</div>
             </div>
             <div className="text-right">
-              <div className="text-ink-muted text-xs">Cena</div>
-              <div
-                className="font-display text-ink text-xl"
-                aria-live="polite"
-                aria-atomic="true"
-              >
+              <div className="text-xs text-ink-muted">Cena</div>
+              <div className="font-display text-xl text-ink" aria-live="polite" aria-atomic="true">
                 {formatPrice(price)}
               </div>
             </div>
@@ -95,9 +91,15 @@ export function MobileDrawer({ onOpenLeadModal }: MobileDrawerProps) {
             >
               Nezávazná poptávka
             </Button>
+            <PdfDownloadButton />
+            <Button variant="ghost" size="md" onClick={() => setInfoOpen(true)} className="w-full">
+              Informace o modelu
+            </Button>
           </div>
         </div>
       </div>
+
+      <ModelInfoDialog open={infoOpen} onClose={() => setInfoOpen(false)} model={model} />
     </>
   );
 }

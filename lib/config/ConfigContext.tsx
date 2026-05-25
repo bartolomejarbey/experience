@@ -3,11 +3,7 @@
 import { createContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 import type { ConfigState } from "@/lib/types/config";
-import type {
-  ConfigOptionId,
-  ConfigurationKey,
-  Model,
-} from "@/lib/types/model";
+import type { ConfigOptionId, ConfigurationKey, Model } from "@/lib/types/model";
 
 import { loadConfig, saveConfig } from "./persistence";
 import { computePrice } from "./price";
@@ -31,26 +27,7 @@ function defaultState(model: Model): ConfigState {
   return obj;
 }
 
-function findExteriorVariant(
-  model: Model,
-  fromSceneId: string,
-  facadeVariant: "dark" | "light",
-): string | null {
-  const fromScene = model.scenes[fromSceneId];
-  if (!fromScene?.exteriorView) return null;
-  const target = Object.values(model.scenes).find(
-    (s) => s.exteriorView === fromScene.exteriorView && s.facadeVariant === facadeVariant,
-  );
-  return target?.id ?? null;
-}
-
-export function ConfigProvider({
-  model,
-  children,
-}: {
-  model: Model;
-  children: ReactNode;
-}) {
+export function ConfigProvider({ model, children }: { model: Model; children: ReactNode }) {
   const [state, setState] = useState<ConfigState>(() => defaultState(model));
   const [currentSceneId, setCurrentSceneId] = useState<string>(model.defaultSceneId);
   const [hydrated, setHydrated] = useState(false);
@@ -81,19 +58,8 @@ export function ConfigProvider({
 
   const setOption = (key: ConfigurationKey, optionId: ConfigOptionId) => {
     setState((prev) => ({ ...prev, [key]: optionId }));
-
-    // Facade swap auto-switches the exterior scene to the matching variant.
-    if (key === "facade") {
-      const facadeOpt = model.configurations
-        .find((c) => c.key === "facade")
-        ?.options.find((o) => o.id === optionId);
-      if (facadeOpt?.facadeVariant) {
-        const target = findExteriorVariant(model, currentSceneId, facadeOpt.facadeVariant);
-        if (target && target !== currentSceneId) {
-          setCurrentSceneId(target);
-        }
-      }
-    }
+    // The orbit viewer re-derives its frame URLs from config state directly,
+    // so facade / pergola changes no longer require a scene swap here.
   };
 
   const price = useMemo(() => computePrice(model, state), [model, state]);
