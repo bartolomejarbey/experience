@@ -134,10 +134,10 @@ export default function OrbitViewer({
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        setFrameIndex((i) => wrap(i + 1, frames.length));
+        setFrameIndex((i) => wrap(i - 1, frames.length));
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        setFrameIndex((i) => wrap(i - 1, frames.length));
+        setFrameIndex((i) => wrap(i + 1, frames.length));
       }
     },
     [frames.length],
