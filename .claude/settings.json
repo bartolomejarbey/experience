@@ -27,10 +27,11 @@
       "Bash(git fetch*)",
       "Bash(git remote*)",
       "Bash(git stash list*)",
+      "Bash(git push origin main*)",
+      "Bash(git push*)",
       "Bash(node .claude/hooks/*)"
     ],
     "deny": [
-      "Bash(git push*)",
       "Bash(git reset --hard*)",
       "Bash(git clean -*)",
       "Bash(git rebase -i*)",

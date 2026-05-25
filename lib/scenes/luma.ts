@@ -244,7 +244,7 @@ export const luma: Model = {
     {
       key: "facade",
       labelCs: "Fasáda",
-      defaultOptionId: "anthracite",
+      defaultOptionId: "moss-green",
       options: [
         // Pět matných barev
         { id: "moss-green", labelCs: "Mechově zelená", priceModifier: 0 },
@@ -263,8 +263,9 @@ export const luma: Model = {
     {
       key: "terrace",
       labelCs: "Terasa",
-      defaultOptionId: "wood",
+      defaultOptionId: "none",
       options: [
+        { id: "none", labelCs: "Žádná", priceModifier: 0 },
         { id: "wood", labelCs: "Dřevěná", priceModifier: 145_000 },
         { id: "stone", labelCs: "Kamenná", priceModifier: 195_000 },
       ],
